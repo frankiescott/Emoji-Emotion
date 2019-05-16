@@ -6,14 +6,14 @@ import json
 import urllib.request
 import numpy as np
 import sys
+import requests
 
-async def get_face_data(url):
+def get_face_data(url):
     headers = {"Content-Type":"application/json", "Ocp-Apim-Subscription-Key": AZURE_API_KEY}
     data = {"url": url}
     faces = {}
-    async with aiohttp.ClientSession() as session:
-        async with session.post('https://eastus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=true&returnFaceAttributes=headPose,emotion,glasses', headers=headers, data=json.dumps(data)) as r:
-            faces = await r.json()
+    r = requests.post('https://eastus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=true&returnFaceAttributes=headPose,emotion,glasses', headers=headers, data=json.dumps(data))
+    faces = r.json()
     if len(faces) == 0:
         return
     if "error" in faces:
@@ -51,6 +51,6 @@ def mood(url: str=None):
 
 def main(argv):
     faces = get_face_data(argv[0])
-
+    
 if __name__ == "__main__":
    main(sys.argv[1:])
