@@ -2,4 +2,4 @@
 
 ![Example](https://raw.githubusercontent.com/frankiescott/Emoji-Emotion/master/example.gif)
 
-Detects the emotion of human faces within an image and pastes the corresponding emoji over the face.
+Utilizes Microsoft's Azure facial recognition API to detect the emotion of human faces within an image and draws the corresponding emoji over each face.
